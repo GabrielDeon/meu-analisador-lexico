@@ -1,0 +1,24 @@
+.lexical-grid table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-family: monospace;
+  }
+  
+  .lexical-grid th,
+  .lexical-grid td {
+    border: 1px solid #ddd;
+    padding: 4px;
+    text-align: center;
+    min-width: 28px;
+    height: 32px;
+  }
+  
+  .lexical-grid .valid {
+    background-color: #a2e5a2;
+  }
+  
+  .lexical-grid .invalid {
+    background-color: #f5a2a2;
+  }
+  
