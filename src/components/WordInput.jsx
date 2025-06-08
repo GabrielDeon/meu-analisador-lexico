@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 
-const WordInput = ({ onAddWord }) => {
-  const [word, setWord] = useState('')
+const WordInput = ({ aoAdicionar }) => {
+  const [palavra, definirPalavra] = useState('')
 
-  const handleAdd = () => {
-    if (word.trim()) {
-      onAddWord(word.trim())
-      setWord('')
+  const adicionar = () => {
+    const limpa = palavra.trim()
+    if (limpa) {
+      aoAdicionar(limpa)
+      definirPalavra('')
     }
   }
 
-  const handleKeyDown = (e) => {
+  const pressionarEnter = (e) => {
     if (e.key === 'Enter') {
-      handleAdd()
+      adicionar()
     }
   }
 
@@ -21,12 +22,12 @@ const WordInput = ({ onAddWord }) => {
       <input
         type="text"
         placeholder="Adicionar palavra"
-        value={word}
-        onChange={(e) => setWord(e.target.value)}
-        onKeyDown={handleKeyDown}
+        value={palavra}
+        onChange={(e) => definirPalavra(e.target.value)}
+        onKeyDown={pressionarEnter}
         style={{ padding: '0.5rem', fontSize: '1rem' }}
       />
-      <button onClick={handleAdd} style={{ marginLeft: '0.5rem', padding: '0.5rem 1rem' }}>
+      <button onClick={adicionar} style={{ marginLeft: '0.5rem', padding: '0.5rem 1rem' }}>
         Adicionar
       </button>
     </div>

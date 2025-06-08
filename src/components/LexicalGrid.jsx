@@ -1,18 +1,19 @@
 import React from 'react'
 import './LexicalGrid.css'
 
-const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('')
+const ALFABETO = 'abcdefghijklmnopqrstuvwxyz'.split('')
 
-const LexicalGrid = ({ trie, path }) => {
-  const gridData = trie.getNodesByDepth()
+const LexicalGrid = ({ analisador, caminho }) => {
+  const dadosGrelha = analisador.obterNosPorNivel()
 
-  const activeMap = {}
-  path.forEach((step, index) => {
-    const key = `${index}-${step.char}`
-    activeMap[key] = step.valid ? 'valid' : 'invalid'
+  const marcacoesAtivas = {}
+  caminho.forEach((etapa, indice) => {
+    const nivel = etapa.no?.nivel ?? indice // se não houver nó, use a posição da letra
+    const chave = `${nivel}-${etapa.letra}`
+    marcacoesAtivas[chave] = etapa.valido ? 'valida' : 'invalida'
   })
 
-  const maxDepth = Math.max(...Object.keys(gridData).map(Number), 0)
+  const maiorNivel = Math.max(...Object.keys(dadosGrelha).map(Number), 0)
 
   return (
     <div className="lexical-grid">
@@ -20,26 +21,26 @@ const LexicalGrid = ({ trie, path }) => {
         <thead>
           <tr>
             <th>qN</th>
-            {ALPHABET.map((char) => (
-              <th key={char}>{char.toUpperCase()}</th>
+            {ALFABETO.map((letra) => (
+              <th key={letra}>{letra.toUpperCase()}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {Array.from({ length: maxDepth + 1 }).map((_, depth) => (
-            <tr key={depth}>
-              <td><strong>q{depth}</strong></td>
-              {ALPHABET.map((char) => {
-                const nodes = gridData?.[depth]?.[char] || []
-                const cellKey = `${depth}-${char}`
+          {Array.from({ length: maiorNivel + 1 }).map((_, nivel) => (
+            <tr key={nivel}>
+              <td><strong>q{nivel}</strong></td>
+              {ALFABETO.map((letra) => {
+                const nos = dadosGrelha?.[nivel]?.[letra] || []
+                const chaveCelula = `${nivel}-${letra}`
 
-                let cellClass = ''
-                if (activeMap[cellKey] === 'valid') cellClass = 'valid'
-                else if (activeMap[cellKey] === 'invalid') cellClass = 'invalid'
+                let classeCelula = ''
+                if (marcacoesAtivas[chaveCelula] === 'valida') classeCelula = 'valida'
+                else if (marcacoesAtivas[chaveCelula] === 'invalida') classeCelula = 'invalida'
 
                 return (
-                  <td key={char} className={cellClass}>
-                    {nodes.map((n) => n.id).join(', ')}
+                  <td key={letra} className={classeCelula}>
+                    {nos.map((n) => n.id).join(', ')}
                   </td>
                 )
               })}

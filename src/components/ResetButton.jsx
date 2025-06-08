@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ResetButton = ({ onReset }) => {
+const ResetButton = ({ aoResetar }) => {
   return (
     <div style={{ marginTop: '1rem' }}>
-      <button onClick={onReset} style={{ padding: '0.5rem 1rem' }}>
+      <button onClick={aoResetar} style={{ padding: '0.5rem 1rem' }}>
         Resetar Analisador
       </button>
     </div>
